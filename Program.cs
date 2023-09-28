@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+
+using System.Net.Sockets;
 using System.Net;
 using System.Runtime.InteropServices;
 
@@ -11,7 +12,7 @@ namespace li.qubic.community.spectrumInfo
         public static bool _finished = false;
         public static string _ip;
         public static string _id;
-        public static short _protocol;
+       // public static short _protocol;
 
 
         public static byte[] GetPublicKeyFromIdentity(string identity)
@@ -44,7 +45,7 @@ namespace li.qubic.community.spectrumInfo
                 return;
             }
 
-            _protocol = short.Parse(args[0]);
+            //_protocol = short.Parse(args[0]);
             _ip = args[1];
             _id = args[2];
 
@@ -59,7 +60,7 @@ namespace li.qubic.community.spectrumInfo
 
             var publicKey = GetPublicKeyFromIdentity(_id);
 
-            var protocol = _protocol;
+           // var protocol = _protocol;
             IPAddress ipAddress = IPAddress.Parse(_ip);
             int port = 21841;
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
@@ -72,7 +73,8 @@ namespace li.qubic.community.spectrumInfo
             var rand = new Random();
             
             package[0] = 40; // define size of package
-            package[3] = (byte)protocol; // protocol
+                             //  package[3] = (byte)0; // protocolpackage[]
+            package[3] = 31;
             package[4] = (byte)rand.Next();
             package[5] = (byte)rand.Next();
             package[6] = (byte)rand.Next();
